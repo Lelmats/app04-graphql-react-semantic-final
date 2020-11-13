@@ -1,5 +1,7 @@
 import React, {Component, Fragment} from "react";
 import {getApolloContext, gql} from '@apollo/client';
+import { Upload } from "../Upload";
+import { Files } from "../Files";
 import {Form, Button, FormGroup, FormInput, FormSelect, Input,TextArea,Select, Container, Grid, Header, Icon, Image, Item, Label, Menu, Segment, Step, Table, Divider, Modal, Rating, Popup, Card,List} from 'semantic-ui-react';
 
 const ADD_GAME = gql`
@@ -133,6 +135,8 @@ export default class AddGame extends Component{
             />
           </Form>
           </Container>
+          {/*<Upload/>
+          <Files/>*/}
           <br/>
           <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
           </div>

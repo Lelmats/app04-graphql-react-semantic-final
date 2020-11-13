@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { client } from "./apollo";
+
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.StrictMode client={client}>
     <App />
   </React.StrictMode>,
   document.getElementById('root')

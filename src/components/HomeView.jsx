@@ -1,12 +1,15 @@
 import { left, right } from '@popperjs/core'
 import React, { Component, Fragment } from 'react'
 import {getApolloContext, gql} from '@apollo/client';
+import { Slide, Fade, fadeImages } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css'
+import Dropdown from 'react-overlays/Dropdown';
 import {  Button, Container, Grid, Header, Icon, Image, Item, Label, Menu, Segment, Step, Table, Divider, Modal, Rating, Popup, Card,List} from 'semantic-ui-react'
 import * as Scroll from 'react-scroll';
 import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 import Game from './Game'
 import GameList from './GameList'
-import Modals from './Modals'
+import ModalExample from './Modals'
 <link rel="stylesheet" type="text/css" href="semantic.min.css"></link>
 
 const GET_ALL_GAMES = gql`
@@ -28,6 +31,7 @@ games
 
 
 export default class HomeView extends Component {
+  
 
   constructor(props) {
     super(props);
@@ -63,15 +67,14 @@ export default class HomeView extends Component {
   
   sendToAddGames = () => this.props.history.push({ pathname: '/addgames' });
 
-    static contextType = getApolloContext(); 
+  static contextType = getApolloContext(); 
 
-      componentDidMount = async ()=>{
-        const {client} = this.context;
-        const response = await client.query({query: GET_ALL_GAMES});
-        this.setState({games: response.data.games});
-        console.log(response.data.games);
-      } 
-   
+    componentDidMount = async ()=>{
+      const {client} = this.context;
+      const response = await client.query({query: GET_ALL_GAMES});
+      this.setState({games: response.data.games});
+      console.log(response.data.games);
+    } 
 
     showId= id=> console.log(id);
 
@@ -105,57 +108,92 @@ export default class HomeView extends Component {
                   </div>
               </div>
       })
-  }
-  
-  showPopGames= ()=>{
-    return this.state.games.map(game=>{
-        console.log(game);
-            return       <div> 
-            <div style={{backgroundColor: '#242C3C', color: 'gray'}} className="ui inverted items left aligned segment ">
-            <div class="ui fitted divider"></div>
-            <div className="item">
-            <div className="ui medium size image verticalAlign ">
-            <img src={game.image}/></div>
-            <div className="content">
-            <a style={{color: 'lightgrey'}} className="header">{game.name}</a>
-            <div style={{color: 'lightgrey'}}className="meta">
-                <span className="cinema">Plataforma:</span>
-                <i className="apple icon"></i>
-                <i className="linux icon"></i>
-                <i className="windows icon"></i>
-            </div>
-            <span style={{color: 'lightgrey'}} className="cinema">Autor: {game.author} </span> <br/>
-            <span style={{color: 'lightgrey'}} className="cinema">Género:</span> 
-            <div style={{color: 'lightgrey'}} className="description">
-              <div class='left floated'>
-                <Container> 
-                <p> 
-                {game.description}
-                </p>
-                </Container>
-                </div>
-            </div>
-            <div className="extra">
-                
-                <div className="ui right floated inverted green button">
-                Descargar
-                <i className="right download icon"></i>
-                </div>
-            </div>
-            <div class='bottom floated'>
-            <Rating maxRating={5} defaultRating={0} icon='heart' size='large' />
-            </div>
-            </div>
-            </div>
-        </div>
-        </div>
-      })
-  }
-  
+    }
+    
+    showPopGames= ()=>{
+      return this.state.games.map(game=>{
+          console.log(game);
+              return       <div> 
+              <div style={{backgroundColor: '#242C3C', color: 'gray'}} className="ui inverted items left aligned segment ">
+              <div class="ui fitted divider"></div>
+              <div className="item">
+              <div className="ui medium size image verticalAlign ">
+              <img src={game.image}/></div>
+              <div className="content">
+              <a style={{color: 'lightgrey'}} className="header">{game.name}</a>
+              <div style={{color: 'lightgrey'}}className="meta">
+                  <span className="cinema">Plataforma:</span>
+                  <i className="apple icon"></i>
+                  <i className="linux icon"></i>
+                  <i className="windows icon"></i>
+              </div>
+              <span style={{color: 'lightgrey'}} className="cinema">Autor: {game.author} </span> <br/>
+              <span style={{color: 'lightgrey'}} className="cinema">Género:</span> 
+              <div style={{color: 'lightgrey'}} className="description">
+                <div class='left floated'>
+                  <Container> 
+                  <p> 
+                  {game.description}
+                  </p>
+                  </Container>
+                  </div>
+              </div>
+              
+              <div  className="extra">
+                  
+                  <div className="ui right floated inverted green button">
+                  Descargar
+                  <i className="right download icon"></i>
+                  </div>
+              </div>
+              <div class='bottom floated'>
+              <Rating maxRating={5} defaultRating={0} icon='heart' size='large' />
+              </div>
+              </div>
+              </div>
+          </div>
+          </div>
+        })
+    }
+      
 
   
   render() {    
     const { activeItem, value } = this.state
+    
+    const fadeImages = [
+      'https://cdn.wccftech.com/wp-content/uploads/2019/01/indie_games_2018.jpg',
+      'https://i0.wp.com/onemoregame.ph/wp-content/uploads/2020/06/lithium-city.jpg',
+      'https://i.ibb.co/1fPPFcK/Hyper-Light-Drifter.png'
+    ];
+
+    const Slideshow = () => {
+      return (
+        <div className="slide-container">
+          <Fade>
+            <div className="each-fade">
+              <div className="image-container">
+                <img src={fadeImages[0]} />
+              </div>
+              <h2>First Slide</h2>
+            </div>
+            <div className="each-fade">
+              <div className="image-container">
+                <img src={fadeImages[1]} />
+              </div>
+              <h2>Second Slide</h2>
+            </div>
+            <div className="each-fade">
+              <div className="image-container">
+                <img src={fadeImages[2]} />
+              </div>
+              <h2>Third Slide</h2>
+            </div>
+          </Fade>
+        </div>
+      )
+    }
+
     return (
       
     <div style={{backgroundColor: '#0C1424'}}> 
@@ -175,28 +213,40 @@ export default class HomeView extends Component {
         <Menu.Item
           name="Juegos"
           active={activeItem === "Juegos"}
-          onClick={() => scroll.scrollTo(1020)}
+          onClick={() => scroll.scrollTo(1050)}
         >
         <Header as='h3' inverted >Recientes</Header>
         </Menu.Item>
         <Menu.Item
           name="Solicitud"
           active={activeItem === "Solicitud"}
-          onClick={() => scroll.scrollTo(2300)}
+          onClick={() => scroll.scrollTo(2575)}
         >
         <Header as='h3' inverted >Descargas</Header>
-        </Menu.Item>
+        {/*</Menu.Item>
         <Menu.Item
           name="Subir"
           active={activeItem === "Subir"}
           onClick={this.sendToAddGames}
         >
-        <Header as='h3' inverted >Subir Juego</Header>
+        <Header as='h3' inverted >Subir Juego</Header>*/}
         </Menu.Item>
-      </Menu>
+      </Menu>*/
+      <div className="slide-container">
+        <Fade>
+          <div className="each-fade">
+            <img src={fadeImages[0]} />
+          </div>
+          <div className="each-fade">
+            <img src={fadeImages[1]} />
+          </div>
+          <div className="each-fade">
+            <img src={fadeImages[2]} />
+          </div>
+        </Fade>
+        </div>
       <div className="ui slide masked reveal image centered" style={{width: '100%', height: '80%'}}>
-      <Image src="https://i.ibb.co/1fPPFcK/Hyper-Light-Drifter.png" className="visible content"/>
-      <Image src="https://fextralife.com/wp-content/uploads/2017/09/soulblight-kuba-pax-west-2017-indie-dev-perspective.jpg" className="hidden content"/>
+
       </div>
 
 
@@ -220,7 +270,7 @@ export default class HomeView extends Component {
     </div>
     <div >
     <br></br>
-    <h3 style={{color: 'lightgrey'}} class="ui inverted header top alinged">¿Quiéres que tu juego se muestre aqui?... ¡contactame!</h3>
+    <h3 style={{color: 'lightgrey'}} class="ui inverted header top alinged">¿Quiéres que tu juego se muestre aqui?... ¡contactanos!</h3>
 
     </div>
     <br></br>
