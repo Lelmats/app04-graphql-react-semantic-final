@@ -83,32 +83,15 @@ export default class AddGame extends Component{
         >
          <Header class="header" as='h3' inverted >Principal</Header>
         </Menu.Item>
-        <Menu.Item
-          name="Juegos"
-          active={activeItem === "Juegos"}
-          onClick={this.handleItemClick}
-        >
-        <Header as='h3' inverted >Catalogo</Header>
-        </Menu.Item>
-        <Menu.Item
-          name="Solicitud"
-          active={activeItem === "Solicitud"}
-          onClick={this.handleItemClick}
-        >
-        <Header as='h3' inverted >Solicitudes</Header>
-        </Menu.Item>
-        <Menu.Item
-          name="Subir"
-          active={activeItem === "Subir"}
-          onClick={this.sendToAddGames}
-        >
-        <Header as='h3' inverted >Subir Juego</Header>
-        </Menu.Item>
       </Menu>
+            
             <br/>
             <br/>
             <br/>
             <br/>
+            <br/>
+            <br/>
+            <Header class="header" as='h1' inverted >Formulario para publicar juego</Header>
             <br/>
             <br/>
             <Form inverted> 
@@ -151,7 +134,7 @@ export default class AddGame extends Component{
           </Form>
           </Container>
           <br/>
-          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
           </div>
     )}
  }

@@ -2,6 +2,8 @@ import { left, right } from '@popperjs/core'
 import React, { Component, Fragment } from 'react'
 import {getApolloContext, gql} from '@apollo/client';
 import {  Button, Container, Grid, Header, Icon, Image, Item, Label, Menu, Segment, Step, Table, Divider, Modal, Rating, Popup, Card,List} from 'semantic-ui-react'
+import * as Scroll from 'react-scroll';
+import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 import Game from './Game'
 import GameList from './GameList'
 import Modals from './Modals'
@@ -26,6 +28,32 @@ games
 
 
 export default class HomeView extends Component {
+
+  constructor(props) {
+    super(props);
+    this.scrollToTop = this.scrollToTop.bind(this);
+  }
+  componentDidMount() {
+
+    Events.scrollEvent.register('begin', function () {
+      console.log("begin", arguments);
+    });
+
+    Events.scrollEvent.register('end', function () {
+      console.log("end", arguments);
+    });
+
+  }
+  scrollToTop() {
+    scroll.scrollToTop();
+  }
+  scrollTo() {
+    scroller.scrollTo('scroll-to-element', {
+      duration: 800,
+      delay: 0,
+      smooth: 'easeInOutQuart'
+    })
+  }
   state = { activeItem: 'destacados' }
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
@@ -124,6 +152,8 @@ export default class HomeView extends Component {
       })
   }
   
+
+  
   render() {    
     const { activeItem, value } = this.state
     return (
@@ -138,23 +168,23 @@ export default class HomeView extends Component {
         <Menu.Item
           name="Destacados"
           active={activeItem === "Destacados"}
-          onClick={this.handleItemClick}
+          onClick={() => scroll.scrollTo(-1)}
         >
          <Header class="header" as='h3' inverted >Principal</Header>
         </Menu.Item>
         <Menu.Item
           name="Juegos"
           active={activeItem === "Juegos"}
-          onClick={this.handleItemClick}
+          onClick={() => scroll.scrollTo(1020)}
         >
-        <Header as='h3' inverted >Catalogo</Header>
+        <Header as='h3' inverted >Recientes</Header>
         </Menu.Item>
         <Menu.Item
           name="Solicitud"
           active={activeItem === "Solicitud"}
-          onClick={this.handleItemClick}
+          onClick={() => scroll.scrollTo(2300)}
         >
-        <Header as='h3' inverted >Solicitudes</Header>
+        <Header as='h3' inverted >Descargas</Header>
         </Menu.Item>
         <Menu.Item
           name="Subir"
@@ -171,19 +201,20 @@ export default class HomeView extends Component {
 
 
     <div>
-    <h1 className="ui header inverted centered segment" style={{backgroundColor: '#1C2434', color: 'lightgrey'}} > Destacados</h1>
-      {this.showPopGames()}      
-
-    <br/>
-    <br/>
-    <br/>
-
-    <h1 className="ui header centered" style={{ color: 'lightgrey'}} > Subidas recientes</h1>
-
+    <h1 className="ui header inverted centered segment" style={{backgroundColor: '#1C2434', color: 'lightgrey'}} > Subidas Recientes</h1>
+      
     <div style={{backgroundColor: '#0C1424'}} className='ui'>
       <Grid columns='1' divided >
       {this.showGames()}      
       </Grid>
+        
+
+    <br/>
+    <br/>
+    <br/>
+    
+    <h1 className="ui header centered horizontal inverted divider" style={{ color: 'lightgrey'}} > Descargas</h1>
+    {this.showPopGames()}    
       
     </div>
     </div>
