@@ -1,7 +1,5 @@
 import React, {Component, Fragment} from "react";
 import {Divider, Table, TableBody, TableRow, TableCell, Button, Select} from 'semantic-ui-react';
-import TitlePage from './TitlePage';
-import Loading from "./Loading";
 
 import {getApolloContext, gql} from '@apollo/client';
 
@@ -10,7 +8,8 @@ const GET_ALL_GROUPS= gql`
         gameGroups{
             id
             name
-            games{
+            games
+            {
                 id
                 name
             }
@@ -55,9 +54,6 @@ export default class GameGroupList extends Component{
 
     showGroups = ()=> {
         const {isLoading, gameGroups, games} = this.state;
-        if(isLoading){
-            return <Loading/>
-        }else{
             return games.map(p =>{
                 //return <div key={p.id}>{p.name}</div>;
                 return <Fragment>
@@ -78,14 +74,12 @@ export default class GameGroupList extends Component{
                     <Divider/>                   
                 </Fragment>
             });
-        }
     }
 
     
     render() {
         return (
             <Fragment>
-                <TitlePage label='Grupos'/>
                 <Select placeholder='Selecciona un grupo' options={this.state.groupsOptions} onChange={this.handleGroup}/>
                 {this.showGroups()}
             </Fragment>

@@ -1,7 +1,5 @@
 import React, {Component, Fragment} from 'react';
 import {Divider, Table, TableBody, TableRow, TableCell, Button} from 'semantic-ui-react';
-import TitlePage from './TitlePage';
-import Loading from "./Loading";
 
 import {getApolloContext, gql} from '@apollo/client';
 
@@ -10,7 +8,10 @@ const GET_ALL_GAMES = gql`
         games{
             id
             name
-            gameGroup{
+            author
+            image
+            description
+            GameGroup{
                 name
             }
         }
@@ -30,16 +31,12 @@ export default class GameList extends Component{
         const {client} = this.context;
         const response = await client.query({query: GET_ALL_GAMES});
         this.setState({games: response.data.games, isLoading: response.loading});
-        //console.log(response.loading);
+        //console.log(response.data.games);
     }
 
     inspectGame = id => this.props.history.push({pathname: '/game', state: {gameId: id}});
 
     showGames = ()=>{
-
-        if(this.state.isLoading){
-            return <Loading/>
-        }else{
             return this.state.games.map(p =>{
                 //return <div key={p.id}>{p.name}</div>;
                 return <Fragment>
@@ -53,7 +50,7 @@ export default class GameList extends Component{
                             </TableRow>
                             <TableRow>
                                 <TableCell>Grupo</TableCell>
-                                <TableCell>{p.gameGroup.name}</TableCell>
+                                <TableCell>{p.GameGroup.name}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Código</TableCell>
@@ -64,13 +61,11 @@ export default class GameList extends Component{
                     <Divider/>                   
                 </Fragment>
             });
-        }
     }
 
     render() {
         return (
             <Fragment>
-                <TitlePage label='Lista de Juegos'/>
                 {this.showGames()}
             </Fragment>
         );

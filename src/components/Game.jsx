@@ -1,5 +1,4 @@
 import React, {Component, Fragment} from 'react';
-import TitlePage from './TitlePage';
 import {getApolloContext, gql} from '@apollo/client';
 import {Table, TableBody, TableRow, TableCell, Form, Button, Divider, FormGroup, FormInput, FormSelect} from 'semantic-ui-react';
 
@@ -94,7 +93,6 @@ export default class Game extends Component{
         const {id, name, gameGroup} = this.state;
         return (
             <Fragment>
-                <TitlePage label='Juego' icon='clipboard outline'/>
                 <Table definition>
                     <TableBody>
                         <TableRow>
