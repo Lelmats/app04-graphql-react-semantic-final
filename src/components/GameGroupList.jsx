@@ -37,6 +37,7 @@ export default class GameGroupList extends Component{
         this.setState({games: group.games});
         console.log(this.state.games);
     }
+    
 
     inspectGame = id => this.props.history.push({pathname: '/game', state: {gameId: id}});
 

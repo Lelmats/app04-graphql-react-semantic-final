@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from "react";
 import {getApolloContext, gql} from '@apollo/client';
-import { Upload } from "../Upload";
-import { Files } from "../Files";
+
 import {Form, Button, FormGroup, FormInput, FormSelect, Input,TextArea,Select, Container, Grid, Header, Icon, Image, Item, Label, Menu, Segment, Step, Table, Divider, Modal, Rating, Popup, Card,List} from 'semantic-ui-react';
 
 const ADD_GAME = gql`
@@ -12,6 +11,10 @@ const ADD_GAME = gql`
             author
             image
             description
+            GameGroup
+        {
+            name
+        }
         }
     }
 `;
@@ -22,6 +25,7 @@ export default class AddGame extends Component{
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     state = { 
+        GameGroup: [],
         fieldName: '',
         fieldAuthor: '',
         fieldImage: '',
@@ -73,19 +77,19 @@ export default class AddGame extends Component{
             <div style={{backgroundColor: '#0C1424'}}>
             <Container  style={{backgroundColor: '#0C1424'}}>
             <Menu stackable inverted widths= "9" fixed='top' style={{backgroundColor: '#242C3C'}}  >
-        <Menu.Item>
-        <Image size="" spaced="right" fluid src="https://i.ibb.co/QY64Rmp/ULSA1-1.png"  style={{width:'15%'}} />
-        <div><div className='ui left float'><Header as='h2' inverted > IndieZone</Header></div></div>
-        </Menu.Item>
+            <Menu.Item>
+            <Image size="" spaced="right" fluid src="https://i.ibb.co/QY64Rmp/ULSA1-1.png"  style={{width:'15%'}} />
+            <div><div className='ui left float'><Header as='h2' inverted > IndieZone</Header></div></div>
+            </Menu.Item>
 
-        <Menu.Item
-          name="Destacados"
-          active={activeItem === "Destacados"}
-          onClick={this.sendToPrincipal}
-        >
-         <Header class="header" as='h3' inverted >Principal</Header>
-        </Menu.Item>
-      </Menu>
+            <Menu.Item
+              name="Destacados"
+              active={activeItem === "Destacados"}
+              onClick={this.sendToPrincipal}
+            >
+            <Header class="header" as='h3' inverted >Principal</Header>
+            </Menu.Item>
+            </Menu>
             
             <br/>
             <br/>

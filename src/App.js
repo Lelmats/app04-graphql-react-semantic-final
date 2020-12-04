@@ -12,6 +12,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
+
 export default class App extends Component{
   render() {
     return (

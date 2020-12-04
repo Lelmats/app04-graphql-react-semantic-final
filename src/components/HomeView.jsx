@@ -10,6 +10,7 @@ import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } f
 import Game from './Game'
 import GameList from './GameList'
 import ModalExample from './Modals'
+
 <link rel="stylesheet" type="text/css" href="semantic.min.css"></link>
 
 const GET_ALL_GAMES = gql`
@@ -20,6 +21,7 @@ games
         name
         author
         image
+        filePath
         description
         GameGroup
         {
@@ -32,19 +34,26 @@ games
 
 export default class HomeView extends Component {
   
+  state = {
+    id: '',
+    name: '',
+    author: '',
+    image: '',
+    description: '',
+    filePath:'',
+}
 
   constructor(props) {
     super(props);
     this.scrollToTop = this.scrollToTop.bind(this);
   }
+
   componentDidMount() {
 
     Events.scrollEvent.register('begin', function () {
-      console.log("begin", arguments);
     });
 
     Events.scrollEvent.register('end', function () {
-      console.log("end", arguments);
     });
 
   }
@@ -74,17 +83,20 @@ export default class HomeView extends Component {
       const response = await client.query({query: GET_ALL_GAMES});
       this.setState({games: response.data.games});
       console.log(response.data.games);
+      const { id, name, author, image, description, filePath } = response.data.games;
+      this.setState({ id: id, name: name, author: author, image: image, description: description, filePath: filePath });
+      console.log(response.data.game);
     } 
 
-    showId= id=> console.log(id);
+    //showId= id=> console.log(id);
 
     showGames= ()=>{
       return this.state.games.map(game=>{
-          console.log(game);
+          //console.log(game);
               return   <div  className="ui link cards">
                   <div style={{ backgroundColor: 'lightgrey'}} className="card blue color ">
                       <div className="image">
-                      <img className= 'image ' src={game.image}/>
+                      <Image size='medium' src={`http://localhost:5000${game.image}`} />
                       </div>
                       <div className="content"> 
                       <div className="header">{game.name}</div>
@@ -112,13 +124,13 @@ export default class HomeView extends Component {
     
     showPopGames= ()=>{
       return this.state.games.map(game=>{
-          console.log(game);
+
               return       <div> 
               <div style={{backgroundColor: '#242C3C', color: 'gray'}} className="ui inverted items left aligned segment ">
               <div class="ui fitted divider"></div>
               <div className="item">
               <div className="ui medium size image verticalAlign ">
-              <img src={game.image}/></div>
+              <img src={`http://localhost:5000${game.image}`}/></div>
               <div className="content">
               <a style={{color: 'lightgrey'}} className="header">{game.name}</a>
               <div style={{color: 'lightgrey'}}className="meta">
@@ -128,7 +140,6 @@ export default class HomeView extends Component {
                   <i className="windows icon"></i>
               </div>
               <span style={{color: 'lightgrey'}} className="cinema">Autor: {game.author} </span> <br/>
-              <span style={{color: 'lightgrey'}} className="cinema">Género:</span> 
               <div style={{color: 'lightgrey'}} className="description">
                 <div class='left floated'>
                   <Container> 
@@ -141,7 +152,7 @@ export default class HomeView extends Component {
               
               <div  className="extra">
                   
-                  <div className="ui right floated inverted green button">
+                  <div className="ui right floated inverted green button" onClick={()=>window.location.href=`http://localhost:5000${game.filePath}`}>
                   Descargar
                   <i className="right download icon"></i>
                   </div>
@@ -161,7 +172,8 @@ export default class HomeView extends Component {
   render() {    
     const { activeItem, value } = this.state
     
-    const fadeImages = [
+    const fadeImages = 
+    [
       'https://cdn.wccftech.com/wp-content/uploads/2019/01/indie_games_2018.jpg',
       'https://i0.wp.com/onemoregame.ph/wp-content/uploads/2020/06/lithium-city.jpg',
       'https://i.ibb.co/1fPPFcK/Hyper-Light-Drifter.png'
@@ -202,7 +214,6 @@ export default class HomeView extends Component {
         <Image size="" spaced="right" fluid src="https://i.ibb.co/QY64Rmp/ULSA1-1.png"  style={{width:'15%'}} />
         <div><div className='ui left float'><Header as='h2' inverted > IndieZone</Header></div></div>
         </Menu.Item>
-
         <Menu.Item
           name="Destacados"
           active={activeItem === "Destacados"}
@@ -213,25 +224,26 @@ export default class HomeView extends Component {
         <Menu.Item
           name="Juegos"
           active={activeItem === "Juegos"}
-          onClick={() => scroll.scrollTo(1050)}
+          onClick={() => scroll.scrollTo(1030)}
         >
         <Header as='h3' inverted >Recientes</Header>
         </Menu.Item>
         <Menu.Item
           name="Solicitud"
           active={activeItem === "Solicitud"}
-          onClick={() => scroll.scrollTo(2575)}
+          onClick={() => scroll.scrollTo(2555)}
         >
         <Header as='h3' inverted >Descargas</Header>
-        {/*</Menu.Item>
+        </Menu.Item>
         <Menu.Item
           name="Subir"
           active={activeItem === "Subir"}
           onClick={this.sendToAddGames}
         >
-        <Header as='h3' inverted >Subir Juego</Header>*/}
+        <Header as='h3' inverted >Subir Juego</Header>
         </Menu.Item>
-      </Menu>*/
+
+      </Menu>
       <div className="slide-container">
         <Fade>
           <div className="each-fade">

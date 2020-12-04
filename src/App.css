@@ -45,3 +45,34 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.progessBar{
+  height: 25px;
+  width: 0%;
+  background-color: rgb(16, 162, 182);
+  color: white;
+  padding:2px;
+  text-align: center;
+  border-radius: 10px;
+  }
+  
+  .textStart{
+    text-align: justify;
+  }
+  
+  .file-upload{
+  
+  display: flex;
+  flex-direction: column;
+  
+  justify-content: space-between;
+  font-size: 1rem;
+  }
+  .upbutton{
+    width: 5rem;
+    padding: .5rem;
+    background-color: #2767e9;
+    color: aliceblue;
+    font-size: 1rem;
+    cursor: pointer;
+   }

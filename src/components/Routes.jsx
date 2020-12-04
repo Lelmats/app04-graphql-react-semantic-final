@@ -5,7 +5,7 @@ import GameList from './GameList';
 import Game from './Game';
 import HomeView from './HomeView';
 import GameGroupList from "./GameGroupList";
-
+import Uploads from "./Upload";
 //import ProductList from './ProductList';
 
 
@@ -17,9 +17,11 @@ export default class Routes extends Component{
                 <Switch>
                     <Route path='/game' component={Game}/>
                     <Route path='/games' component={GameList}/>
-                    <Route path='/addgames' component={AddGame}/>
                     <Route path='/groups' component={GameGroupList}/>
+                    <Route path='/addgames' component={Uploads}/>
                     <Route path='/' component={HomeView}/>
+                    
+                    
                 </Switch>
             </BrowserRouter>
         );
