@@ -34,6 +34,7 @@ body {
   padding: 40px;
   font-family: Arial;
   text-align: center;
+  margin-left: 10px;
 }
 
 
@@ -76,3 +77,7 @@ body {
     font-size: 1rem;
     cursor: pointer;
    }
+   
+   .example::-webkit-scrollbar {
+    display: none;
+  }

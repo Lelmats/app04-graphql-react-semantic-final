@@ -56,11 +56,7 @@ export default class Uploads extends Component {
         this.el = React.createRef();
         this.el2 = React.createRef();
     }
-
-
     static contextType = getApolloContext();
-
-    //handleGameGenero = (e, { value }) => this.setState({ fieldGameGenero: value });
 
     handleName = e => this.setState({ fieldName: e.target.value });
     handleAuthor = e => this.setState({ fieldAuthor: e.target.value });
@@ -178,8 +174,6 @@ export default class Uploads extends Component {
                 console.log(res);
                 this.setState({ getFile2: { name: res.data.file, path: 'http://localhost:5000' + res.data.path } })
                 this.setState({ fieldImage: res.data.path });
-                //getFile({ name: res.data.name, path: 'http://localhost:5000' + res.data.path })
-                // el.current.value = "";
             }).catch(err => console.log(err))
         }
         console.log(this.state.name)
@@ -217,10 +211,10 @@ export default class Uploads extends Component {
                                 <Form inverted style={{ backgroundColor: '#1a1a2e' }} float="left">
                                     <Form.Group widths='equal'>
                                         <Form.Input textAlign="left" fluid label='Nombre' placeholder='Nombre' onChange={this.handleName} />
-                                        <Form.Input fluid label='Autor' placeholder='Autor' onChange={this.handleAuthor} />
+                                        <Form.Input fluid label='Autor' type="text" placeholder='Autor' onChange={this.handleAuthor} />
                                     </Form.Group>
                                     <Form.Group>
-                                        <Form.TextArea rows={1} width='12' label='Descripción' placeholder='Descripción que la gente verá de tu juego' onChange={this.handleDescription} />
+                                        <Form.TextArea rows={14} width='12' label='Descripción'  placeholder='Descripción que la gente verá de tu juego' onChange={this.handleDescription} />
  
                                     </Form.Group>
                                     <Form.Field textAlign="left" fluid label='Imagen del juego (Preferencia 16:9 para mejor visual)' />
@@ -228,32 +222,33 @@ export default class Uploads extends Component {
                                     <div className="file-upload">
                                         <input type="file" ref={this.el2} onChange={handleChange2} />
                                         <br/>
-                                        <br/>
-                                        <Form.Button size="medium" inverted onClick={uploadImages}>Subir</Form.Button>
-                                    </div>
-                                    <div className="progessBar" style={{ width: progress2 }}>{progress2}</div>
+                                    </div>              
                                     <hr />
 
                                     <Form.Field textAlign="left" fluid label='Archivo(Rar,Zip)' />
 
                                     <div className="file-upload">
-                                        <input type="file" ref={this.el} onChange={handleChange} />
+                                        <input type="file" ref={this.el} onChange={handleChange}/>
                                         <br/>
-                                        <Form.Button size="medium" inverted onClick={uploadFile}>Subir</Form.Button>
+                                        <div className="progessBar"  style={{ width: progress }}>{progress}</div>
+                                        <Form.Button color='olive' floated="right" size="medium" inverted onClick={() => {
+                                        uploadImages();
+                                        uploadFile();
+                                        }}>Salvar Cambios</Form.Button>
                                     </div>
-                                    <div className="progessBar" style={{ width: progress }}>{progress}</div>
                                     <hr />
 
                                     <center>
-                                        <Form.Button inverted onClick={() => this.saveGame()}> Publicar</Form.Button>
+                                        <Form.Button floated="right" size="huge" color='green' inverted onClick={() => this.saveGame()}> Publicar</Form.Button>
                                     </center>
-                                    
+                                    <br/>
+                                    <br/>
                                 </Form>
                             </Segment>
                             
                         </div>
                     </div>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
             </div>
         );
     }

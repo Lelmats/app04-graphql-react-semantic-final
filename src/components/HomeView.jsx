@@ -3,13 +3,9 @@ import React, { Component, Fragment } from 'react'
 import {getApolloContext, gql} from '@apollo/client';
 import { Slide, Fade, fadeImages } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
-import Dropdown from 'react-overlays/Dropdown';
 import {  Button, Container, Grid, Header, Icon, Image, Item, Label, Menu, Segment, Step, Table, Divider, Modal, Rating, Popup, Card,List} from 'semantic-ui-react'
-import * as Scroll from 'react-scroll';
 import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-import Game from './Game'
-import GameList from './GameList'
-import ModalExample from './Modals'
+
 
 <link rel="stylesheet" type="text/css" href="semantic.min.css"></link>
 
@@ -88,11 +84,8 @@ export default class HomeView extends Component {
       console.log(response.data.game);
     } 
 
-    //showId= id=> console.log(id);
-
     showGames= ()=>{
       return this.state.games.map(game=>{
-          //console.log(game);
               return   <div  className="ui link cards">
                   <div style={{ backgroundColor: 'lightgrey'}} className="card blue color ">
                       <div className="image">
@@ -125,7 +118,7 @@ export default class HomeView extends Component {
     showPopGames= ()=>{
       return this.state.games.map(game=>{
 
-              return       <div> 
+              return       <div class= ""> 
               <div style={{backgroundColor: '#242C3C', color: 'gray'}} className="ui inverted items left aligned segment ">
               <div class="ui fitted divider"></div>
               <div className="item">
@@ -231,7 +224,7 @@ export default class HomeView extends Component {
         <Menu.Item
           name="Solicitud"
           active={activeItem === "Solicitud"}
-          onClick={() => scroll.scrollTo(2555)}
+          onClick={() => scroll.scrollTo(1990)}
         >
         <Header as='h3' inverted >Descargas</Header>
         </Menu.Item>
@@ -269,8 +262,6 @@ export default class HomeView extends Component {
       <Grid columns='1' divided >
       {this.showGames()}      
       </Grid>
-        
-
     <br/>
     <br/>
     <br/>
